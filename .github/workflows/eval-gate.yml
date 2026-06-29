@@ -1,0 +1,42 @@
+# Regression CI gate – engine #9 (objective trajectory check)
+#
+# Runs on the self-hosted runner because:
+#   - LM Studio (used by --jury) runs on the host box behind WSL NAT and is
+#     unreachable from GitHub-hosted runners.
+#   - The trajectory engine and gold traces live in this repo; NO agent-generated
+#     code executes here. Agent code (from LLM outputs) is confined to the Docker
+#     sandbox inside the verifier engine (evals/verifier/). This workflow only
+#     runs OUR checked-in Python against OUR checked-in gold data.
+#
+# The hard gate (default, no --jury) is fully offline: no LM Studio is needed,
+# no Docker is needed, no network egress occurs.
+
+name: eval-gate
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  objective-gate:
+    name: Objective trajectory gate ($0, offline)
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run hard gate (objective, no LLM)
+        id: gate
+        run: |
+          dashboard/.venv/bin/python evals/ci-gate/gate.py
+        # On success the markdown summary is written to evals/ci-gate/summary.md.
+        # On failure the same file is written and the step exits 1.
+
+      - name: Post gate summary as PR comment (on failure)
+        if: failure() && steps.gate.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr comment "${{ github.event.pull_request.number }}" \
+            --body-file evals/ci-gate/summary.md

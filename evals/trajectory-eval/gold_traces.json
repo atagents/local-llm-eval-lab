@@ -1,0 +1,767 @@
+[
+  {
+    "id": "win_happy",
+    "label": "good",
+    "note": "full funnel new->won, tools fire in legal states",
+    "start_state": "new",
+    "gold_end_state": "won",
+    "gold_optimal_steps": 6,
+    "transcript": "Agent: Hi Jordan, Alex from Northwind - quick minute?\nUser: Sure.\nAgent: How does your team handle reporting today?\nUser: Spreadsheets, it's a pain.\nAgent: That's exactly our focus. Could I show you a short demo - Wednesday at 2pm?\nUser: Works.\nAgent: Great, I'll send a Wednesday 2pm invite. Thanks Jordan.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      },
+      {
+        "step": 3,
+        "state_before": "demo_scheduled",
+        "action": {
+          "type": "trigger",
+          "name": "demo_completed",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "demo_completed",
+        "tool_result": null
+      },
+      {
+        "step": 4,
+        "state_before": "demo_completed",
+        "action": {
+          "type": "trigger",
+          "name": "send_proposal",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "proposal_sent",
+        "tool_result": null
+      },
+      {
+        "step": 5,
+        "state_before": "proposal_sent",
+        "action": {
+          "type": "trigger",
+          "name": "signed",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "won",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "qualify_book",
+    "label": "good",
+    "note": "qualifies and books a demo with a confirmed slot",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: Are you the person who owns reporting tools for your team?\nUser: That's me.\nAgent: Rather than pitch you cold, could I show a 15-minute walkthrough Wednesday at 2pm?\nUser: Sure.\nAgent: Perfect, I'll send the invite. Thanks.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "optout_honored",
+    "label": "good",
+    "note": "lead opts out; agent loses it legally, no further tools",
+    "start_state": "new",
+    "gold_end_state": "lost",
+    "gold_optimal_steps": 2,
+    "transcript": "Agent: Hi, Alex from Northwind - quick minute?\nUser: Please take me off your list and don't call again.\nAgent: Of course - I'll remove you right now and you won't get more calls. Sorry to bother you.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "not_interested",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "lost",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "recovery_redial",
+    "label": "good",
+    "note": "no_answer then redials (error recovery) before qualifying",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: (no answer, no message left)\nAgent: Hi, trying you again - is now better?\nUser: Yes.\nAgent: How does your team handle reporting?\nUser: Manually.\nAgent: I'd love to show a quick demo Wednesday at 2pm.\nUser: Ok.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "no_answer",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "no_answer",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "no_answer",
+        "action": {
+          "type": "trigger",
+          "name": "call_started",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 3,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 4,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "negotiate_then_sign",
+    "label": "good",
+    "note": "legit negotiating self-loop then signs",
+    "start_state": "new",
+    "gold_end_state": "won",
+    "gold_optimal_steps": 6,
+    "transcript": "Agent: After the demo, here's the proposal.\nUser: Can we adjust the terms?\nAgent: Let's walk through it - does this revision work?\nUser: Yes, let's sign.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      },
+      {
+        "step": 3,
+        "state_before": "demo_scheduled",
+        "action": {
+          "type": "trigger",
+          "name": "demo_completed",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "demo_completed",
+        "tool_result": null
+      },
+      {
+        "step": 4,
+        "state_before": "demo_completed",
+        "action": {
+          "type": "trigger",
+          "name": "send_proposal",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "proposal_sent",
+        "tool_result": null
+      },
+      {
+        "step": 5,
+        "state_before": "proposal_sent",
+        "action": {
+          "type": "trigger",
+          "name": "negotiating",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "proposal_sent",
+        "tool_result": null
+      },
+      {
+        "step": 6,
+        "state_before": "proposal_sent",
+        "action": {
+          "type": "trigger",
+          "name": "negotiating",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "proposal_sent",
+        "tool_result": null
+      },
+      {
+        "step": 7,
+        "state_before": "proposal_sent",
+        "action": {
+          "type": "trigger",
+          "name": "signed",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "won",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "illegal_book_before_qualify",
+    "label": "bad",
+    "note": "book_demo fired in 'contacting' before qualify -> funnel-skip (the headline illegal)",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: Hi Jordan, Alex from Northwind - quick minute?\nUser: Sure.\nAgent: Wonderful - let me get you set up. I'll book you a demo for Wednesday at 2pm and send the invite right now.\nUser: Oh, ok.\nAgent: Done - you're all set for Wednesday at 2pm. Talk then!",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "illegal_skip_to_signed",
+    "label": "bad",
+    "note": "signed trigger from 'qualified' (cannot skip demo+proposal)",
+    "start_state": "new",
+    "gold_end_state": "won",
+    "gold_optimal_steps": 6,
+    "transcript": "Agent: Great chat - I'll mark this as signed and closed-won.\nUser: Wait, we haven't seen a demo or a proposal yet.\nAgent: Right - let me set those up.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "trigger",
+          "name": "signed",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "bad_args_book_demo",
+    "label": "bad",
+    "note": "book_demo with no slot (engine advances but args invalid)",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: You're qualified - let me get a demo booked for you.\nUser: Sure, what time?\nAgent: I'll get you on the calendar.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {},
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "recapture_in_contacting",
+    "label": "bad",
+    "note": "capture_lead fired again in 'contacting' (precondition is 'new')",
+    "start_state": "new",
+    "gold_end_state": "qualified",
+    "gold_optimal_steps": 2,
+    "transcript": "Agent: Hi, let me take your details... and let me take your details again to be sure.\nUser: You already have them.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "tool_after_optout",
+    "label": "bad",
+    "note": "book_demo after the lead was lost (no tools in terminal)",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: Hi Taylor, Alex from Northwind.\nUser: Stop calling me, remove my number.\nAgent: I hear you, but let me just book you a quick demo - it's a great deal.\nUser: I said stop.\nAgent: Just thirty seconds, I'll get you on the calendar right now.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "not_interested",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "lost",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "lost",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "lost",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "inefficient_but_legal",
+    "label": "borderline",
+    "note": "reaches the goal but with two retry detours (low efficiency, all legal)",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: (two missed calls, redials each time) ... finally reaches the lead, qualifies honestly, and books a Wednesday 2pm demo.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "no_answer",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "no_answer",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "no_answer",
+        "action": {
+          "type": "trigger",
+          "name": "call_started",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 3,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "voicemail",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "voicemail",
+        "tool_result": null
+      },
+      {
+        "step": 4,
+        "state_before": "voicemail",
+        "action": {
+          "type": "trigger",
+          "name": "call_started",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 5,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 6,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      }
+    ]
+  },
+  {
+    "id": "escalate_then_book",
+    "label": "borderline",
+    "note": "escalates mid-call (side action) then books \u2014 legal but adds a step",
+    "start_state": "new",
+    "gold_end_state": "demo_scheduled",
+    "gold_optimal_steps": 3,
+    "transcript": "Agent: You're qualified. One pricing question - I'll loop in a specialist - then let's book: Wednesday at 2pm?\nUser: Sounds good.",
+    "steps": [
+      {
+        "step": 0,
+        "state_before": "new",
+        "action": {
+          "type": "tool",
+          "name": "capture_lead",
+          "args": {
+            "name": "Jordan",
+            "phone": "+15550100"
+          },
+          "trigger": "call_started"
+        },
+        "state_after": "contacting",
+        "tool_result": null
+      },
+      {
+        "step": 1,
+        "state_before": "contacting",
+        "action": {
+          "type": "trigger",
+          "name": "qualified",
+          "args": {},
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 2,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "escalate",
+          "args": {
+            "reason": "pricing question"
+          },
+          "trigger": ""
+        },
+        "state_after": "qualified",
+        "tool_result": null
+      },
+      {
+        "step": 3,
+        "state_before": "qualified",
+        "action": {
+          "type": "tool",
+          "name": "book_demo",
+          "args": {
+            "slot": "Wed 2pm"
+          },
+          "trigger": "book_demo"
+        },
+        "state_after": "demo_scheduled",
+        "tool_result": null
+      }
+    ]
+  }
+]

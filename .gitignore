@@ -1,0 +1,58 @@
+# --- FreeStack: keep only source + config in git; heavy parts are rebuildable ---
+
+# Virtual environments (recreate via the install commands in each README/demo header)
+**/.venv/
+.venv/
+
+# Upstream clone - not our code, re-clone separately (see CLAUDE.md)
+mini-swe-agent/
+
+# Eval run outputs / artifacts (regenerated each run)
+**/runs/
+**/.verdict/
+*.log
+evals/ci-gate/summary.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Node (promptfoo is run via npx; nothing should land here, but just in case)
+node_modules/
+
+# Model weights / large binaries - never in git (models live in LM Studio)
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.onnx
+
+# Local databases (dashboard data) - regenerated at runtime
+*.db
+*.sqlite
+
+# Secrets - never commit. env-wsl.sh only holds a PLACEHOLDER key, so it is tracked;
+# real tokens must go in a local override that stays ignored:
+.env
+.env.local
+*.secret
+
+# Third-party / scraped datasets containing real-people conversation data - NEVER commit
+# (this repo is public-mirrored; real chat logs = PII liability).
+evals/train_cot.jsonl
+evals/*_cot.jsonl
+*.Zone.Identifier
+
+# Claude Code personal local overrides (not shared)
+.claude/settings.local.json
+.claude/worktrees/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Mira agent runtime memory (not committed)
+companion/mira_facts.json

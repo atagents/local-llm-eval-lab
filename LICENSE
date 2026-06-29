@@ -1,0 +1,18 @@
+Copyright (c) 2026 atagents. All rights reserved.
+
+This software and its associated documentation files (the "Software") are
+proprietary and confidential. No license, express or implied, is granted to any
+party to use, copy, modify, merge, publish, distribute, sublicense, or sell
+copies of the Software, in whole or in part, without the prior written
+permission of the copyright holder.
+
+THIRD-PARTY COMPONENTS. This project installs and orchestrates third-party
+evaluation tools (including but not limited to promptfoo, DeepEval, garak,
+lm-evaluation-harness, and RAGAS). Those tools are NOT covered by this notice and
+remain subject to their own respective licenses (see EVALS-CATALOG.md). This
+notice applies solely to the original code and documentation authored in this
+repository.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.

@@ -1,0 +1,25 @@
+# FreeStack promptfoo smoke - first off-the-shelf eval framework against LM Studio.
+# Both the model-under-test AND the llm-rubric judge are local LM Studio models,
+# so nothing calls a paid API. Run with:
+#   OPENAI_BASE_URL=$LM_STUDIO_API_BASE OPENAI_API_KEY=lm-studio \
+#     npx promptfoo@latest eval -c promptfooconfig.yaml --no-cache
+description: FreeStack promptfoo smoke - grade a local model answer, fully on LM Studio
+
+providers:
+  - openai:chat:qwen2.5-coder-7b-instruct   # model under test (agent-family coder)
+
+defaultTest:
+  options:
+    # the JUDGE for llm-rubric assertions - a different family (Microsoft), also local
+    provider: openai:chat:phi-4-14b
+
+prompts:
+  - "Write a single one-line Python expression that evaluates to True when integer n is even. Reply with only the expression, no prose."
+
+tests:
+  - description: even-number expression
+    assert:
+      - type: contains
+        value: "%"
+      - type: llm-rubric
+        value: "The output is a correct one-line Python expression that tests whether n is even (e.g. n % 2 == 0). It must be just the expression with no surrounding prose."

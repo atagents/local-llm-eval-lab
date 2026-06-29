@@ -1,0 +1,6 @@
+# garak -> LM Studio. uri MUST be here (garak ignores CLI uri override).
+plugins:
+  generators:
+    openai:
+      OpenAICompatible:
+        uri: http://<lm-studio-host>:1234/v1
