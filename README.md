@@ -125,6 +125,9 @@ export MIRA_BASE_URL=https://api.deepseek.com/v1 MIRA_API_KEY=$DEEPSEEK_API_KEY 
 
 ## Licensing
 
-Original code and docs are **proprietary — Copyright (c) 2026 atagents, all rights reserved**
-([LICENSE](LICENSE)); not licensed for redistribution. Installed third-party tools keep their own
-licenses (mostly MIT / Apache-2.0) — verify per tool in [EVALS-CATALOG.md](EVALS-CATALOG.md).
+Code and docs: **Apache-2.0** ([LICENSE](LICENSE), [NOTICE](NOTICE)) – use, fork, adapt freely with
+attribution. One exception: the Mira companion dataset and persona
+(`companion/companion_train_v3.jsonl`, `companion/persona.md`, seed dialogues) are
+**CC BY-NC 4.0** – non-commercial use only, see [companion/NOTICE](companion/NOTICE).
+Installed third-party tools keep their own licenses (mostly MIT / Apache-2.0) – verify per tool in
+[EVALS-CATALOG.md](EVALS-CATALOG.md).

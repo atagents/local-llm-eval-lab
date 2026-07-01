@@ -1,0 +1,15 @@
+local-llm-eval-lab
+Copyright 2026 atagents
+
+Original code and documentation in this repository are licensed under the
+Apache License, Version 2.0 (see LICENSE).
+
+Exception: the Mira companion dataset and persona content under companion/
+(companion_train_v3.jsonl, persona.md, and the seed dialogue strings embedded
+in seed_companion.py, hard_seed.py, seed_v3.py) are licensed under
+CC BY-NC 4.0 instead (see companion/NOTICE).
+
+Third-party evaluation tools installed and orchestrated by this project
+(promptfoo, DeepEval, garak, lm-evaluation-harness, RAGAS, and others) are NOT
+part of this distribution and remain under their own respective licenses (see
+EVALS-CATALOG.md).

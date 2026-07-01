@@ -1,0 +1,18 @@
+Mira companion dataset – license exception
+
+The following content in this directory is NOT covered by the repository's
+Apache-2.0 license:
+
+- companion_train_v3.jsonl (the frontier-curated training dataset)
+- persona.md (the Mira persona definition)
+- the seed dialogue strings embedded in seed_companion.py, hard_seed.py, seed_v3.py
+
+This content is licensed under Creative Commons Attribution-NonCommercial 4.0
+International (CC BY-NC 4.0): https://creativecommons.org/licenses/by-nc/4.0/
+
+You may share and adapt it for non-commercial purposes with attribution to
+atagents/local-llm-eval-lab. Commercial use, including training commercial
+models on this dataset, requires prior written permission.
+
+The Python code logic in this directory (agent wrappers, eval runners, dataset
+builders) IS covered by the repository's Apache-2.0 license.
